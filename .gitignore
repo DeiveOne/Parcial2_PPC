@@ -1,0 +1,11 @@
+*.iml
+.gradle
+/local.properties
+/.idea
+/build
+/app/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+backend parcial 2 viajes NODEJS/viajes_api/data/*.db
