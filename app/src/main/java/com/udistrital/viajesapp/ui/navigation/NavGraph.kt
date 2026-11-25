@@ -1,4 +1,4 @@
-package com.udistrital.viajesapp.domain.ui.navigation
+package com.udistrital.viajesapp.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -8,10 +8,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.tu paquete.ui.detail.TripDetailScreen
-import com.tu paquete.ui.places.CreatePlaceScreen
-import com.tu paquete.ui.trips.CreateTripScreen
-import com.tu paquete.ui.trips.TripListScreen
+import com.udistrital.viajesapp.ui.detail.TripDetailScreen
+import com.udistrital.viajesapp.ui.places.CreatePlaceScreen
+import com.udistrital.viajesapp.ui.trips.CreateTripScreen
+import com.udistrital.viajesapp.ui.trips.TripListScreen
 
 @Composable
 fun NavGraph(

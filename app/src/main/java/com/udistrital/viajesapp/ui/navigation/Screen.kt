@@ -1,4 +1,4 @@
-package com.udistrital.viajesapp.domain.ui.navigation
+package com.udistrital.viajesapp.ui.navigation
 
 sealed class Screen(val route: String) {
     data object TripList : Screen("trip_list")
