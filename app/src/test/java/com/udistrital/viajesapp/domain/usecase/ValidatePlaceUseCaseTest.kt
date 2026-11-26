@@ -71,6 +71,25 @@ class ValidatePlaceUseCaseTest {
     }
 
     @Test
+    fun `when required place fields are blank, return validation errors`() {
+        val result = validatePlaceUseCase(
+            trip = sampleTrip,
+            name = " ",
+            description = "",
+            city = " ",
+            categoryId = 0,
+            tentativeDate = ""
+        )
+
+        assertFalse(result.isValid)
+        assertNotNull(result.nameError)
+        assertNotNull(result.descriptionError)
+        assertNotNull(result.cityError)
+        assertNotNull(result.categoryError)
+        assertNotNull(result.tentativeDateError)
+    }
+
+    @Test
     fun `when tentativeDate is inside trip dates range, return success`() {
         val result = validatePlaceUseCase(
             trip = sampleTrip,

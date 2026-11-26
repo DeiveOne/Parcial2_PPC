@@ -2,6 +2,7 @@ package com.udistrital.viajesapp.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -12,6 +13,7 @@ import com.udistrital.viajesapp.ui.detail.TripDetailScreen
 import com.udistrital.viajesapp.ui.places.CreatePlaceScreen
 import com.udistrital.viajesapp.ui.trips.CreateTripScreen
 import com.udistrital.viajesapp.ui.trips.TripListScreen
+import com.udistrital.viajesapp.ui.trips.TripListViewModel
 
 @Composable
 fun NavGraph(
@@ -19,6 +21,8 @@ fun NavGraph(
     navController: NavHostController = rememberNavController(),
     startDestination: String = Screen.TripList.route
 ) {
+    val tripListViewModel: TripListViewModel = viewModel()
+
     NavHost(
         navController = navController,
         startDestination = startDestination,
@@ -26,6 +30,7 @@ fun NavGraph(
     ) {
         composable(route = Screen.TripList.route) {
             TripListScreen(
+                viewModel = tripListViewModel,
                 onAddTripClick = {
                     navController.navigate(Screen.CreateTrip.route)
                 },
@@ -42,6 +47,7 @@ fun NavGraph(
                 },
                 onTripCreated = {
                     navController.popBackStack()
+                    tripListViewModel.loadTrips()
                 }
             )
         }

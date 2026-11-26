@@ -9,7 +9,10 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
 
-    const val BASE_URL = "http://10.0.2.2:3000/"
+    // Cambia BASE_URL según tu entorno:
+    // - Emulador Android: "http://10.0.2.2:3000/"
+    // - Dispositivo físico (Celular en la misma red Wi-Fi): "http://192.168.20.136:3000/"
+    const val BASE_URL = "http://192.168.20.136:3000/"
 
     private const val TIMEOUT_SECONDS = 30L
 

@@ -6,6 +6,7 @@ import com.udistrital.viajesapp.ui.trips.TripListUiState
 import com.udistrital.viajesapp.ui.trips.TripListViewModel
 import com.udistrital.viajesapp.util.MainDispatcherRule
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -43,5 +44,15 @@ class TripListViewModelTest {
         val state = viewModel.uiState.value
         assertTrue(state is TripListUiState.Error)
         assertEquals("Error de conexión", (state as TripListUiState.Error).message)
+    }
+
+    @Test
+    fun `when refreshing trips, request the list again`() = runTest {
+        coEvery { getTripsUseCase() } returns Result.success(emptyList())
+
+        val viewModel = TripListViewModel(getTripsUseCase)
+        viewModel.loadTrips()
+
+        coVerify(exactly = 2) { getTripsUseCase() }
     }
 }
