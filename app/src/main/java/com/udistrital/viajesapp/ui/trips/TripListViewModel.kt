@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.udistrital.viajesapp.data.repository.TripRepositoryImpl
 import com.udistrital.viajesapp.domain.usecase.GetTripsUseCase
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,13 +17,18 @@ class TripListViewModel(
     private val _uiState = MutableStateFlow<TripListUiState>(TripListUiState.Loading)
     val uiState: StateFlow<TripListUiState> = _uiState.asStateFlow()
 
+    private var loadJob: Job? = null
+
     init {
         loadTrips()
     }
 
-    fun loadTrips() {
-        viewModelScope.launch {
-            _uiState.value = TripListUiState.Loading
+    fun loadTrips(showLoading: Boolean = true) {
+        loadJob?.cancel()
+        loadJob = viewModelScope.launch {
+            if (showLoading || _uiState.value !is TripListUiState.Success) {
+                _uiState.value = TripListUiState.Loading
+            }
             getTripsUseCase()
                 .onSuccess { trips ->
                     _uiState.value = TripListUiState.Success(trips)

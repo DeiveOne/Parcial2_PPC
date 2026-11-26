@@ -34,7 +34,7 @@ fun TripDetailScreen(
     val uiState by viewModel.uiState.collectAsState()
 
     LaunchedEffect(tripId) {
-        viewModel.loadTripDetail(tripId)
+        viewModel.loadTripDetailIfNeeded(tripId)
     }
 
     Scaffold(
